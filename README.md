@@ -16,7 +16,7 @@ Este é um simulador educativo do famoso "Jogo da Oncinha", um caça-níquel que
 
 ## Visão Geral
 
-O Jogo da Oncinha é uma demonstração educativa que simula um caça-níquel com animais da fauna brasileira. O objetivo principal é mostrar como funcionam os mecanismos matemáticos e psicológicos utilizados em jogos de azar para manter os jogadores apostando.
+O Jogo da Oncinha é uma demonstração educativa que simula um caça-níquel com animais. O objetivo principal é mostrar como funcionam os mecanismos matemáticos e psicológicos utilizados em jogos de azar para manter os jogadores apostando.
 
 ## Estrutura do Projeto
 
