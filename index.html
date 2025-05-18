@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Oncinha - Demo Educativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=NLo9gmP60AQGQOjEQ6MhAFGQ2Lb_2R7O3t8Q1GXdcc5CDKIBGo5jHBZdTKJLQO7AsyE_WKJjVWD04rLzWaFo1UBby9zOU6XwR7Zep6ykiMYVYLzu3h3gBwgDq6rTSmGAiRqXvBtXHmNZMDL2_uq-WBPN5zgsdIPXnWO4u7aXRtwxz1OI08EOEY-fRGHJ1MolCyw7sQ_n0Z57XZbPfLYpyWSVW8WtKZN8fEyPmcfgRbYxbTZsnLWZlrkoKmvdrf6rd47UBLgSkXmyLN_fplDdIY5Koc_3tGhJSbHlX4k5fSGGEDIFLdtQbirnHod6a_bzVSIvkaSnxnk0VMSerp0MlE3OZnxtJnmLQtu0HbmzB9eHgSu7tVd_-0YSBE-ro9xHAh0BElbcnWsVxa9gPtwktYnSPdGnoT-PwLtSqiFORpJmEVXHdS-kNagzN0naj1qTYVfW9m0t_uh6hTS4-x_FesDh3EQoowcB6wEUoVybWAA-8v9PMN0O1WFLWTetRVeNGh1GdSux9y_-37jKRFNKQlExPHmsZK6u72ZcZVaCPH07IMwypcikqijk_uz5jT_j7IkhcKSvYoCNfS_BNbHK2ViGyMU3pTkQmLn8sL6qW4h0QYoLP-tYF8eeUySy9Xjxc15C5_b1s4IDArV7Wogk9cunJVLRToEsC-gha53tqi8PvocnhdBcr8m-dOKH_qfNMWrO5Ekela41RJLEHeviSV1er7iCxISQMMuqWewGDlKqUbT6U80PT39YHX0bQhn1CSTtsZ6gFJHz4-kvYltpIF1ORom6-K2jreiWenRrwaTYQz8SvQHJtZXwnXlJ603phFsKdCSO6PRhKApv1EB6hV-5TVbi0ZFMlyH8diLcrh8" charset="UTF-8"></script></head>
+<body>
+    <div class="container game-container mt-3">
+        <!-- Máquina caça-níquel -->
+        <div class="slot-machine">
+            <!-- Topo da máquina -->
+            <div class="machine-top">
+                <div class="dots-row">
+                    <div class="dot bg-white"></div>
+                    <div class="dot bg-warning"></div>
+                    <div class="dot bg-white"></div>
+                    <div class="dot bg-warning"></div>
+                    <div class="dot bg-white"></div>
+                    <div class="dot bg-warning"></div>
+                    <div class="dot bg-white"></div>
+                    <div class="dot bg-warning"></div>
+                    <div class="dot bg-white"></div>
+                </div>
+            </div>
+            
+            <!-- Alavanca -->
+            <div class="lever">
+                <div class="lever-top"></div>
+            </div>
+            
+            <!-- Painel de exibição -->
+            <div class="display-panel">
+                <div class="slots" id="slots">
+                    <div class="slot" id="slot1"><span class="animal-icon">🐆</span></div>
+                    <div class="slot" id="slot2"><span class="animal-icon">🐘</span></div>
+                    <div class="slot" id="slot3"><span class="animal-icon">🦓</span></div>
+                </div>
+            </div>
+            
+            <!-- Painel de controle -->
+            <div class="control-panel">
+                <div class="row g-2">
+                    <div class="col-6">
+                        <button id="spinBtn" class="btn btn-success w-100">Apostar R$10</button>
+                    </div>
+                    <div class="col-6">
+                        <button id="smallBetBtn" class="btn btn-secondary w-100">Apostar R$5</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exibição de saldo -->
+        <div class="balance-display">
+            Saldo: R$<span id="balance">100,00</span>
+        </div>
+        
+        <!-- Controles -->
+        <div class="mt-3 controls-row">
+            <button id="configBtn" class="btn btn-primary">Configurações</button>
+            <button id="infoBtn" class="btn btn-info">Como Funciona</button>
+            <button id="resetBtn" class="btn btn-warning">Reiniciar</button>
+        </div>
+        
+        <!-- Histórico de jogadas -->
+        <div class="mt-3">
+            <h5>Histórico de Jogadas</h5>
+            <div id="resultsLog" class="bg-white p-2 rounded"></div>
+        </div>
+        
+        <!-- Estatísticas -->
+        <div class="mt-3">
+            <h5>Estatísticas</h5>
+            <div class="bg-white p-2 rounded">
+                <div class="row">
+                    <div class="col-6">Jogadas: <span id="totalPlays">0</span></div>
+                    <div class="col-6">Vitórias: <span id="totalWins">0</span></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">Lucro do jogador: <span id="playerProfit">R$0,00</span></div>
+                    <div class="col-6">Lucro da casa: <span id="houseProfit">R$0,00</span></div>
+                </div>
+                <div class="row mt-2" id="psychInfo">
+                    <div class="col-12">Fase atual: <span id="currentPhase">Inicial</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Configuração -->
+    <div class="modal fade" id="configModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Configuração</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="config-table">
+                        <thead>
+                            <tr>
+                                <th>Animal</th>
+                                <th>% Vitória</th>
+                                <th>Multiplicador</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🦓 Zebra</td>
+                                <td><input type="number" class="form-control form-control-sm" id="preguicaChance" value="50"></td>
+                                <td><input type="number" class="form-control form-control-sm" id="preguicaMultiplier" value="1.20" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>🐘 Elefante</td>
+                                <td><input type="number" class="form-control form-control-sm" id="elefanteChance" value="10"></td>
+                                <td><input type="number" class="form-control form-control-sm" id="elefanteMultiplier" value="1.50" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>🦜 Arara</td>
+                                <td><input type="number" class="form-control form-control-sm" id="araraChance" value="6"></td>
+                                <td><input type="number" class="form-control form-control-sm" id="araraMultiplier" value="3.00" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>🦫 Castor</td>
+                                <td><input type="number" class="form-control form-control-sm" id="capivaraChance" value="4"></td>
+                                <td><input type="number" class="form-control form-control-sm" id="capivaraMultiplier" value="5.00" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>🐆 Onça</td>
+                                <td><input type="number" class="form-control form-control-sm" id="oncaChance" value="2"></td>
+                                <td><input type="number" class="form-control form-control-sm" id="oncaMultiplier" value="9.00" step="0.1"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-3">
+                        <label>Lucro do Cassino (%)</label>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" id="guaranteeProfit" class="me-2">
+                            <input type="number" class="form-control form-control-sm" id="houseEdge" value="0">
+                        </div>
+                    </div>
+                    <hr>
+                    <h5>Configurações Psicológicas</h5>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="enablePsychologicalTricks" checked>
+                        <label class="form-check-label" for="enablePsychologicalTricks">Ativar táticas psicológicas</label>
+                    </div>
+                    <div id="psychSettings">
+                        <div class="mb-3">
+                            <label class="form-label">Número de jogadas iniciais "fáceis"</label>
+                            <input type="number" class="form-control" id="easyWinsCount" value="5" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Chance extra nas jogadas iniciais (%)</label>
+                            <input type="number" class="form-control" id="easyWinsBonus" value="30" min="0" max="100">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Redução progressiva de chance após fase inicial (%)</label>
+                            <input type="number" class="form-control" id="lossPhaseReduction" value="15" min="0" max="100">
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="enableNearMiss" checked>
+                            <label class="form-check-label" for="enableNearMiss">Ativar "quase vitórias"</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="enableWinSounds" checked>
+                            <label class="form-check-label" for="enableWinSounds">Ativar sons de vitória</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="showPhaseInfo" checked>
+                            <label class="form-check-label" for="showPhaseInfo">Mostrar fase atual</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveConfigBtn">Confirmar Configurações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Informações -->
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Como Funciona o Jogo?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Demonstração Educativa</h6>
+                    <p>Este é um simulador educativo do famoso "Jogo da Oncinha" para demonstrar como funciona a matemática por trás desses jogos.</p>
+                    
+                    <h6>Regras do Jogo:</h6>
+                    <ul>
+                        <li>Você faz uma aposta (R$5 ou R$10)</li>
+                        <li>Três slots irão girar aleatoriamente</li>
+                        <li>Se os três slots mostrarem o mesmo animal, você ganha!</li>
+                        <li>Cada animal tem uma probabilidade diferente de aparecer e um multiplicador diferente</li>
+                    </ul>
+                    
+                    <h6>Táticas Psicológicas Implementadas:</h6>
+                    <div class="alert alert-warning">
+                        <strong>Atenção:</strong> Estas são técnicas reais usadas por cassinos e jogos de azar para manter os jogadores apostando.
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0">1. Fase de "Fisgar" o Jogador</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Nas primeiras jogadas, o jogo aumenta artificialmente suas chances de ganhar para criar uma falsa sensação de que é fácil vencer.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header bg-danger text-white">
+                            <h6 class="mb-0">2. Fase de "Perda Progressiva"</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Após as jogadas iniciais, o jogo reduz suas chances de ganhar para recuperar o dinheiro pago e gerar lucro.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0">3. "Quase Vitórias"</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>O jogo frequentemente mostra resultados onde você "quase" ganhou (dois símbolos iguais) para criar a ilusão de que está perto de vencer.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">4. Reforço Positivo</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Sons, animações e mensagens de vitória são exagerados para criar uma resposta emocional positiva, enquanto as perdas são minimizadas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Vitória -->
+    <div class="modal fade" id="winModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-success text-white">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">PARABÉNS! VOCÊ GANHOU!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="display-1 mb-3" id="winAnimal">🐆</div>
+                    <h3 class="mb-4">Você ganhou <span id="winAmount">R$90,00</span>!</h3>
+                    <p>Continue jogando para ganhar mais!</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Elementos de áudio -->
+    <audio id="winSound" class="win-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="nearMissSound" class="win-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-wheel-1932.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script do jogo -->
+    <script src="script.js"></script>
+</body>
+</html>
